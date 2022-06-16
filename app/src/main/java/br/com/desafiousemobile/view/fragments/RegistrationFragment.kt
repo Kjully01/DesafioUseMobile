@@ -5,16 +5,70 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import br.com.desafiousemobile.R
+import br.com.desafiousemobile.databinding.FragmentRegistrationBinding
+import br.com.desafiousemobile.viewModel.AnimalViewModel
 
 class RegistrationFragment : Fragment() {
+
+    private lateinit var binding: FragmentRegistrationBinding
+    private lateinit var viewModel: AnimalViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registration, container, false)
+        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(AnimalViewModel::class.java)
+        listener()
+        observer()
+    }
+
+    private fun listener() {
+        binding.apply {
+            btnRegistration.setOnClickListener {
+                viewModel.registration(
+                    etName.text.toString(),
+                    etDescription.text.toString(),
+                    etAge.text.toString().toInt(),
+                    etSpecies.text.toString(),
+                    etLink.text.toString()
+                )
+            }
+        }
+    }
+
+    private fun observer(){
+        viewModel.apply {
+            animalSuccess.observe(viewLifecycleOwner, Observer{
+                Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+                clean()
+            })
+            error.observe(
+                viewLifecycleOwner, Observer {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
+    }
+
+    private fun clean(){
+        binding.apply {
+            etName.setText("")
+            etDescription.setText("")
+            etAge.setText("")
+            etSpecies.setText("")
+            etLink.setText("")
+        }
     }
 
 }
