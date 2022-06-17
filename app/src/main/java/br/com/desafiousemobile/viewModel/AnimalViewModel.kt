@@ -39,8 +39,18 @@ class AnimalViewModel : ViewModel() {
                 _error.postValue(exception.message)
             }.collect { animalResponse ->
                 _animalSuccess.postValue(animalResponse)
-
             }
+        }
+    }
+
+    fun getAnimals(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getTheAnimals()
+                .catch { exception ->
+                    _error.postValue(exception.message)
+                }.collect {
+                    _animalSuccess.postValue(it)
+                }
         }
     }
 }

@@ -3,7 +3,12 @@ package br.com.desafiousemobile.model.api
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-class AnimalResponse (
+data class AnimalResponse (
+    @SerializedName("items")
+    val animals: List<Animal>
+)
+
+data class Animal(
     @SerializedName("id")
     val id: String?,
     @SerializedName("name")
@@ -21,3 +26,4 @@ class AnimalResponse (
     @SerializedName("updated_at")
     val updated_at: Date?
 )
+

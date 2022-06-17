@@ -40,4 +40,19 @@ class AnimalRepository {
         }
     }
 
+    suspend fun getTheAnimals(): Flow<AnimalResponse> {
+        return flow{
+            animalRoute.getAnimals()
+                .let { response ->
+                    if(response.isSuccessful){
+                        response.body()
+                    } else {
+                        throw HttpException(response)
+                    }
+                }?.let {
+                    emit(it)
+                }
+        }
+    }
+
 }

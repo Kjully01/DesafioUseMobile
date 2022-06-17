@@ -50,7 +50,7 @@ class RegistrationFragment : Fragment() {
     private fun observer(){
         viewModel.apply {
             animalSuccess.observe(viewLifecycleOwner, Observer{
-                Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), it.animals.last().name, Toast.LENGTH_SHORT).show()
                 clean()
             })
             error.observe(
