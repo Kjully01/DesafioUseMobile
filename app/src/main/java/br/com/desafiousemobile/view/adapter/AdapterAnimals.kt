@@ -8,13 +8,15 @@ import br.com.desafiousemobile.databinding.LayoutRecyclerViewBinding
 import br.com.desafiousemobile.model.api.Animal
 import coil.load
 
-class AdapterAnimals : RecyclerView.Adapter<AdapterAnimals.ViewHolderAnimals>() {
+class AdapterAnimals(
+    private val onAnimalClickListener: AnimalClickListener
+) : RecyclerView.Adapter<AdapterAnimals.ViewHolderAnimals>() {
 
-    private var animalList : MutableList<Animal> = arrayListOf()
+    private var animalList: MutableList<Animal> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderAnimals {
         val itemBinding = LayoutRecyclerViewBinding.inflate(LayoutInflater.from(parent.context))
-        return ViewHolderAnimals(itemBinding)
+        return ViewHolderAnimals(itemBinding, onAnimalClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolderAnimals, position: Int) {
@@ -24,20 +26,27 @@ class AdapterAnimals : RecyclerView.Adapter<AdapterAnimals.ViewHolderAnimals>() 
     override fun getItemCount(): Int = animalList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(listAux: List<Animal>){
+    fun setData(listAux: List<Animal>) {
         animalList.clear()
         animalList.addAll(listAux)
         notifyDataSetChanged()
     }
 
-    class ViewHolderAnimals(val binding: LayoutRecyclerViewBinding) :
+    class ViewHolderAnimals(
+        private val binding: LayoutRecyclerViewBinding,
+        private val onAnimalClickListener: AnimalClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(animal: Animal){
+        fun onBind(animal: Animal) {
             binding.apply {
                 imageItem.imageItem.load(animal.image)
                 tvName.text = animal.name
                 tvDescription.text = animal.description
+
+                root.setOnClickListener {
+                    onAnimalClickListener.onAnimalClickListener(animal)
+                }
             }
         }
 

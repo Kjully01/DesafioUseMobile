@@ -1,5 +1,6 @@
 package br.com.desafiousemobile.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,22 +9,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.desafiousemobile.R
 import br.com.desafiousemobile.databinding.FragmentHomeBinding
 import br.com.desafiousemobile.model.api.Animal
+import br.com.desafiousemobile.view.activity.DetailsActivity
 import br.com.desafiousemobile.view.adapter.AdapterAnimals
+import br.com.desafiousemobile.view.adapter.AnimalClickListener
 import br.com.desafiousemobile.viewModel.AnimalViewModel
-import coil.load
-import kotlinx.android.synthetic.main.fragment_registration.view.*
-import kotlinx.android.synthetic.main.layout_recycler_view.view.*
+import com.google.gson.annotations.SerializedName
+import java.util.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), AnimalClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapterRecyclerView : AdapterAnimals
     private lateinit var viewModel: AnimalViewModel
-
-    //private var animalsList: List<Animal> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +46,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun startAdapter(){
+        adapterRecyclerView = AdapterAnimals(this)
         binding.rvAnimals.apply {
-            adapterRecyclerView = AdapterAnimals()
             layoutManager = LinearLayoutManager(context)
             adapter = adapterRecyclerView
         }
@@ -53,6 +55,22 @@ class HomeFragment : Fragment() {
 
     private fun setDataAdapter(animalsList: List<Animal>){
        adapterRecyclerView.setData(animalsList)
+    }
+
+    override fun onAnimalClickListener(animal: Animal) {
+        saveAnimal(animal)
+        val intent = Intent(context, DetailsActivity::class.java)
+        requireActivity().startActivity(intent)
+    }
+
+    private fun saveAnimal(animal: Animal){
+        viewModel.saveAnimalDataStore(
+            name = animal.name.toString(),
+            description = animal.description.toString(),
+            age = animal.age.toString().toInt(),
+            species = animal.species.toString(),
+            image = animal.image.toString()
+        )
     }
 
     private fun observer(){
@@ -68,6 +86,5 @@ class HomeFragment : Fragment() {
             )
         }
     }
-
 
 }

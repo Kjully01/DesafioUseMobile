@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="br.com.desafiousemobile.view.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/homeToDetails"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="br.com.desafiousemobile.view.fragments.RegistrationFragment"
@@ -20,4 +24,9 @@
         android:name="br.com.desafiousemobile.view.fragments.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="br.com.desafiousemobile.view.fragments.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>
