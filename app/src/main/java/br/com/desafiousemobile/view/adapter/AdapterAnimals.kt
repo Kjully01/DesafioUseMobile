@@ -35,7 +35,7 @@ class AdapterAnimals : RecyclerView.Adapter<AdapterAnimals.ViewHolderAnimals>() 
 
         fun onBind(animal: Animal){
             binding.apply {
-                image.imageItem.load(animal.image)
+                imageItem.imageItem.load(animal.image)
                 tvName.text = animal.name
                 tvDescription.text = animal.description
             }

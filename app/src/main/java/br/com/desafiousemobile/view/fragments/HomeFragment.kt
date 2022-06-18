@@ -13,6 +13,7 @@ import br.com.desafiousemobile.databinding.FragmentHomeBinding
 import br.com.desafiousemobile.model.api.Animal
 import br.com.desafiousemobile.view.adapter.AdapterAnimals
 import br.com.desafiousemobile.viewModel.AnimalViewModel
+import coil.load
 import kotlinx.android.synthetic.main.fragment_registration.view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 
@@ -22,7 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapterRecyclerView : AdapterAnimals
     private lateinit var viewModel: AnimalViewModel
 
-    private var listAnimals: List<Animal> = listOf()
+    //private var animalsList: List<Animal> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +39,8 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AnimalViewModel::class.java)
         viewModel.getAnimals()
 
-        startAdapter()
         observer()
-        setDataAdapter()
+        startAdapter()
     }
 
     private fun startAdapter(){
@@ -51,14 +51,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setDataAdapter(){
-       adapterRecyclerView.setData(listAnimals)
+    private fun setDataAdapter(animalsList: List<Animal>){
+       adapterRecyclerView.setData(animalsList)
     }
 
     private fun observer(){
         viewModel.apply {
             animalSuccess.observe(viewLifecycleOwner, Observer{ animalResponse ->
-                //binding.rvAnimals.etName.text = animalResponse.animals[0].name.toString()
+                val animalsList = animalResponse.animals
+                setDataAdapter(animalsList)
             })
             error.observe(
                 viewLifecycleOwner, Observer {
