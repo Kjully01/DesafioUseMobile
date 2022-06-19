@@ -1,7 +1,7 @@
 package br.com.desafiousemobile.viewModel
 
 import android.app.Application
-import br.com.desafiousemobile.model.dataStore.DataStoreManager
+import br.com.desafiousemobile.model.data_local.dataStore.DataStoreManager
 
 class ApplicationDataStore: Application() {
 

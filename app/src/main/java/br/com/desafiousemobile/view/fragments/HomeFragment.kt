@@ -9,17 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.desafiousemobile.R
 import br.com.desafiousemobile.databinding.FragmentHomeBinding
-import br.com.desafiousemobile.model.api.Animal
+import br.com.desafiousemobile.model.data_remote.model.AnimalResponse
 import br.com.desafiousemobile.view.activity.DetailsActivity
 import br.com.desafiousemobile.view.adapter.AdapterAnimals
 import br.com.desafiousemobile.view.adapter.AnimalClickListener
 import br.com.desafiousemobile.viewModel.AnimalViewModel
-import com.google.gson.annotations.SerializedName
-import java.util.*
 
 class HomeFragment : Fragment(), AnimalClickListener {
 
@@ -53,30 +49,39 @@ class HomeFragment : Fragment(), AnimalClickListener {
         }
     }
 
-    private fun setDataAdapter(animalsList: List<Animal>){
+    private fun setDataAdapter(animalsList: List<AnimalResponse>){
        adapterRecyclerView.setData(animalsList)
     }
 
-    override fun onAnimalClickListener(animal: Animal) {
-        saveAnimal(animal)
+    override fun onAnimalClickListener(animalResponse: AnimalResponse) {
+        saveAnimal(animalResponse)
         val intent = Intent(context, DetailsActivity::class.java)
         requireActivity().startActivity(intent)
     }
 
-    private fun saveAnimal(animal: Animal){
+    override fun onFavoriteClickListener(animalResponse: AnimalResponse) {
+        favoriteAnimal(animalResponse)
+    }
+
+    private fun saveAnimal(animalResponse: AnimalResponse){
         viewModel.saveAnimalDataStore(
-            name = animal.name.toString(),
-            description = animal.description.toString(),
-            age = animal.age.toString().toInt(),
-            species = animal.species.toString(),
-            image = animal.image.toString()
+            name = animalResponse.name.toString(),
+            description = animalResponse.description.toString(),
+            age = animalResponse.age.toString().toInt(),
+            species = animalResponse.species.toString(),
+            image = animalResponse.image.toString()
         )
+    }
+
+    private fun favoriteAnimal(animalResponse: AnimalResponse){
+        viewModel.favoriteAnimal(animalResponse)
+        Toast.makeText(requireContext(), "favoritado", Toast.LENGTH_SHORT).show()
     }
 
     private fun observer(){
         viewModel.apply {
             animalSuccess.observe(viewLifecycleOwner, Observer{ animalResponse ->
-                val animalsList = animalResponse.animals
+                val animalsList = animalResponse.animalResponses
                 setDataAdapter(animalsList)
             })
             error.observe(

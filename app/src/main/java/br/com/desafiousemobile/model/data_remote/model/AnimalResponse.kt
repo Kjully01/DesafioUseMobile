@@ -1,14 +1,9 @@
-package br.com.desafiousemobile.model.api
+package br.com.desafiousemobile.model.data_remote.model
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class AnimalResponse (
-    @SerializedName("items")
-    val animals: List<Animal>
-)
-
-data class Animal(
+data class AnimalResponse(
     @SerializedName("id")
     val id: String?,
     @SerializedName("name")

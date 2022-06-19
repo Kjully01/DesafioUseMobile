@@ -1,5 +1,6 @@
-package br.com.desafiousemobile.model.api
+package br.com.desafiousemobile.model.data_remote.api
 
+import br.com.desafiousemobile.model.data_remote.model.AnimalListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -10,9 +11,9 @@ interface RoutesApi {
     @POST("/api/v1/animals")
     suspend fun doRegistration(
         @Body body: AnimalRequest
-    ): Response<AnimalResponse>
+    ): Response<AnimalListResponse>
 
     @GET("/api/v1/animals")
-    suspend fun getAnimals(): Response<AnimalResponse>
+    suspend fun getAnimals(): Response<AnimalListResponse>
 
 }

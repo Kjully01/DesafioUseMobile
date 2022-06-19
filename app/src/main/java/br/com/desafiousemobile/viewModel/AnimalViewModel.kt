@@ -1,33 +1,45 @@
 package br.com.desafiousemobile.viewModel
 
+import android.app.Application
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import br.com.desafiousemobile.model.api.Animal
-import br.com.desafiousemobile.model.api.AnimalResponse
-import br.com.desafiousemobile.model.dataStore.DataStoreManager
-import br.com.desafiousemobile.model.repository.AnimalRepository
+import androidx.lifecycle.*
+import br.com.desafiousemobile.model.data_local.AnimalDatabase
+import br.com.desafiousemobile.model.data_remote.model.AnimalResponse
+import br.com.desafiousemobile.model.data_remote.model.AnimalListResponse
+import br.com.desafiousemobile.model.data_local.dataStore.DataStoreManager
+import br.com.desafiousemobile.model.data_local.model.Animal
+import br.com.desafiousemobile.model.data_local.repository.AnimalRepositoryLocal
+import br.com.desafiousemobile.model.data_remote.repository.AnimalRepositoryRemote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class AnimalViewModel : ViewModel() {
+class AnimalViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: AnimalRepository = AnimalRepository()
+    var readAllData: LiveData<List<Animal>>
 
-    private val _animalSuccess: MutableLiveData<AnimalResponse> = MutableLiveData()
-    val animalSuccess: LiveData<AnimalResponse> = _animalSuccess
+    private val repositoryRemote: AnimalRepositoryRemote = AnimalRepositoryRemote()
+    private var repositoryLocal: AnimalRepositoryLocal
+
+    private val _animalSuccess: MutableLiveData<AnimalListResponse> = MutableLiveData()
+    val animalSuccess: LiveData<AnimalListResponse> = _animalSuccess
 
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
-    private val _animalDataSource: MutableLiveData<Animal> = MutableLiveData()
-    val animalDataSource: LiveData<Animal> get() = _animalDataSource
+    private val _animalResponseDataSource: MutableLiveData<AnimalResponse> = MutableLiveData()
+    val animalResponseDataSource: LiveData<AnimalResponse> get() = _animalResponseDataSource
+
+    init {
+        val animalDao = AnimalDatabase.getDatabase(
+            application
+        ).animalDao()
+        repositoryLocal = AnimalRepositoryLocal(animalDao)
+        readAllData = repositoryLocal.readAllData
+    }
 
     fun registration(
         name: String,
@@ -37,7 +49,7 @@ class AnimalViewModel : ViewModel() {
         image: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.doTheRegistration(
+            repositoryRemote.doTheRegistration(
                 name,
                 description,
                 age,
@@ -53,7 +65,7 @@ class AnimalViewModel : ViewModel() {
 
     fun getAnimals() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getTheAnimals()
+            repositoryRemote.getTheAnimals()
                 .catch { exception ->
                     _error.postValue(exception.message)
                 }.collect {
@@ -108,8 +120,8 @@ class AnimalViewModel : ViewModel() {
             animalImage = DataStoreManager.readDataStore(stringPreferencesKey("IMAGE"))
         }
 
-        _animalDataSource.postValue(
-            Animal(
+        _animalResponseDataSource.postValue(
+            AnimalResponse(
                 id = null,
                 name = animalNameDataStore,
                 description = animalDescription,
@@ -120,5 +132,35 @@ class AnimalViewModel : ViewModel() {
                 updated_at = null
             )
         )
+    }
+
+    fun favoriteAnimal(animalResponse: AnimalResponse) {
+        val animal: Animal = Animal(
+            id = animalResponse.id.toString(),
+            name = animalResponse.name.toString(),
+            description = animalResponse.description.toString(),
+            age = animalResponse.age.toString().toInt(),
+            species = animalResponse.species.toString(),
+            image = animalResponse.image.toString()
+        )
+        addFavoriteAnimal(animal)
+    }
+
+    private fun addFavoriteAnimal(animal: Animal) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryLocal.addFavoriteAnimal(animal)
+        }
+    }
+
+    fun updateFavoriteAnimal(animal: Animal) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryLocal.updateFavoriteAnimal(animal)
+        }
+    }
+
+    fun deleteFavoriteAnimal(animal: Animal) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryLocal.deleteFavoriteAnimal(animal)
+        }
     }
 }

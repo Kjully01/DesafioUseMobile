@@ -1,13 +1,13 @@
-package br.com.desafiousemobile.model.repository
+package br.com.desafiousemobile.model.data_remote.repository
 
-import br.com.desafiousemobile.model.api.AnimalRequest
-import br.com.desafiousemobile.model.api.AnimalResponse
-import br.com.desafiousemobile.model.api.Api
+import br.com.desafiousemobile.model.data_remote.api.AnimalRequest
+import br.com.desafiousemobile.model.data_remote.model.AnimalListResponse
+import br.com.desafiousemobile.model.data_remote.api.Api
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
-class AnimalRepository {
+class AnimalRepositoryRemote {
 
     private var animalRoute =
         Api("https://bootcamp-ios-api.herokuapp.com").create()
@@ -18,7 +18,7 @@ class AnimalRepository {
         age: Int,
         species: String,
         image: String
-    ): Flow<AnimalResponse> {
+    ): Flow<AnimalListResponse> {
         return flow {
             animalRoute.doRegistration(
                 AnimalRequest(
@@ -40,7 +40,7 @@ class AnimalRepository {
         }
     }
 
-    suspend fun getTheAnimals(): Flow<AnimalResponse> {
+    suspend fun getTheAnimals(): Flow<AnimalListResponse> {
         return flow{
             animalRoute.getAnimals()
                 .let { response ->

@@ -1,4 +1,4 @@
-package br.com.desafiousemobile.model.dataStore
+package br.com.desafiousemobile.model.data_local.dataStore
 
 import android.app.Application
 import android.content.Context
@@ -13,7 +13,7 @@ object DataStoreManager {
     private lateinit var application: Application
 
     fun init(application: Application) {
-        this.application = application
+        DataStoreManager.application = application
     }
 
     private val Context.preferencesDataStore: DataStore<Preferences> by preferencesDataStore("ANIMAL_INFO")

@@ -42,6 +42,7 @@
         tools:text="Descrição" />
 
     <ImageView
+        android:id="@+id/icFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_favorite"
@@ -51,7 +52,7 @@
         app:layout_constraintTop_toTopOf="@id/image" />
 
     <View
-        android:id="@+id/view1"
+        android:id="@+id/divisor"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"

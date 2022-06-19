@@ -1,4 +1,4 @@
-package br.com.desafiousemobile.model.api
+package br.com.desafiousemobile.model.data_remote.api
 
 data class AnimalRequest (
     val name: String,

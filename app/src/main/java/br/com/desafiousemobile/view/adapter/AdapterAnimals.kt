@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.desafiousemobile.databinding.LayoutRecyclerViewBinding
-import br.com.desafiousemobile.model.api.Animal
+import br.com.desafiousemobile.model.data_remote.model.AnimalResponse
 import coil.load
+import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 
 class AdapterAnimals(
     private val onAnimalClickListener: AnimalClickListener
 ) : RecyclerView.Adapter<AdapterAnimals.ViewHolderAnimals>() {
 
-    private var animalList: MutableList<Animal> = arrayListOf()
+    private var animalResponseList: MutableList<AnimalResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderAnimals {
         val itemBinding = LayoutRecyclerViewBinding.inflate(LayoutInflater.from(parent.context))
@@ -20,15 +21,15 @@ class AdapterAnimals(
     }
 
     override fun onBindViewHolder(holder: ViewHolderAnimals, position: Int) {
-        holder.onBind(animalList[position])
+        holder.onBind(animalResponseList[position])
     }
 
-    override fun getItemCount(): Int = animalList.size
+    override fun getItemCount(): Int = animalResponseList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(listAux: List<Animal>) {
-        animalList.clear()
-        animalList.addAll(listAux)
+    fun setData(listAux: List<AnimalResponse>) {
+        animalResponseList.clear()
+        animalResponseList.addAll(listAux)
         notifyDataSetChanged()
     }
 
@@ -38,14 +39,18 @@ class AdapterAnimals(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(animal: Animal) {
+        fun onBind(animalResponse: AnimalResponse) {
             binding.apply {
-                imageItem.imageItem.load(animal.image)
-                tvName.text = animal.name
-                tvDescription.text = animal.description
+                imageItem.imageItem.load(animalResponse.image)
+                tvName.text = animalResponse.name
+                tvDescription.text = animalResponse.description
 
                 root.setOnClickListener {
-                    onAnimalClickListener.onAnimalClickListener(animal)
+                    onAnimalClickListener.onAnimalClickListener(animalResponse)
+                }
+
+                root.icFavorite.setOnClickListener {
+                    onAnimalClickListener.onFavoriteClickListener(animalResponse)
                 }
             }
         }
