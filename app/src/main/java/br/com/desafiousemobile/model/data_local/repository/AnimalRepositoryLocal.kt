@@ -7,15 +7,15 @@ import br.com.desafiousemobile.model.data_local.model.Animal
 class AnimalRepositoryLocal(private val animalDao: AnimalDao) {
     val readAllData: LiveData<List<Animal>> = animalDao.readAllData()
 
-    suspend fun addFavoriteAnimal(animal: Animal){
+    suspend fun addFavoriteAnimal(animal: Animal) {
         animalDao.addFavoriteAnimal(animal)
     }
 
-    suspend fun updateFavoriteAnimal(animal: Animal){
-        animalDao.updateFavoriteAnimal(animal)
+    fun searchAnimal(id: String): String {
+        return animalDao.searchAnimal(id)
     }
 
-    suspend fun deleteFavoriteAnimal(animal: Animal){
+    suspend fun deleteFavoriteAnimal(animal: Animal) {
         animalDao.deleteFavoriteAnimal(animal)
     }
 }

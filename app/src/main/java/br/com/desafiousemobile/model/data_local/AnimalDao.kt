@@ -10,11 +10,11 @@ interface AnimalDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addFavoriteAnimal(animal: Animal)
 
-    @Update
-    suspend fun updateFavoriteAnimal(animal: Animal)
-
     @Delete
     suspend fun deleteFavoriteAnimal(animal: Animal)
+
+    @Query("SELECT id FROM animal_table WHERE id = :id")
+    fun searchAnimal(id: String): String
 
     @Query("SELECT * FROM animal_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<Animal>>

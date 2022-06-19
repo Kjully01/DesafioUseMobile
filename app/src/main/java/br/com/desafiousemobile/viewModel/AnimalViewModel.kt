@@ -135,7 +135,7 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun favoriteAnimal(animalResponse: AnimalResponse) {
-        val animal: Animal = Animal(
+        val animal = Animal(
             id = animalResponse.id.toString(),
             name = animalResponse.name.toString(),
             description = animalResponse.description.toString(),
@@ -143,18 +143,24 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
             species = animalResponse.species.toString(),
             image = animalResponse.image.toString()
         )
-        addFavoriteAnimal(animal)
+
+        addOrDeleteAnimal(animal)
+    }
+
+    private fun addOrDeleteAnimal(animal: Animal) {
+        viewModelScope.launch(Dispatchers.IO) {
+            var idAnimal = repositoryLocal.searchAnimal(animal.id)
+            if(animal.id == idAnimal){
+                deleteFavoriteAnimal(animal)
+            } else {
+                addFavoriteAnimal(animal)
+            }
+        }
     }
 
     private fun addFavoriteAnimal(animal: Animal) {
         viewModelScope.launch(Dispatchers.IO) {
             repositoryLocal.addFavoriteAnimal(animal)
-        }
-    }
-
-    fun updateFavoriteAnimal(animal: Animal) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repositoryLocal.updateFavoriteAnimal(animal)
         }
     }
 
