@@ -134,7 +134,7 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
         )
     }
 
-    fun favoriteAnimal(animalResponse: AnimalResponse) {
+    fun clickOnFavoriteAnimal(animalResponse: AnimalResponse) {
         val animal = Animal(
             id = animalResponse.id.toString(),
             name = animalResponse.name.toString(),

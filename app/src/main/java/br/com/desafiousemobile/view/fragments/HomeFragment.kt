@@ -60,7 +60,7 @@ class HomeFragment : Fragment(), AnimalClickListener {
     }
 
     override fun onFavoriteClickListener(animalResponse: AnimalResponse) {
-        favoriteAnimal(animalResponse)
+        onFavoriteAnimal(animalResponse)
     }
 
     private fun saveAnimal(animalResponse: AnimalResponse){
@@ -73,9 +73,8 @@ class HomeFragment : Fragment(), AnimalClickListener {
         )
     }
 
-    private fun favoriteAnimal(animalResponse: AnimalResponse){
-        viewModel.favoriteAnimal(animalResponse)
-        Toast.makeText(requireContext(), "favoritado", Toast.LENGTH_SHORT).show()
+    private fun onFavoriteAnimal(animalResponse: AnimalResponse){
+        viewModel.clickOnFavoriteAnimal(animalResponse)
     }
 
     private fun observer(){

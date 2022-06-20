@@ -2,6 +2,7 @@ package br.com.desafiousemobile.view.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.desafiousemobile.databinding.LayoutRecyclerViewBinding
@@ -51,6 +52,14 @@ class AdapterAnimals(
 
                 root.icFavorite.setOnClickListener {
                     onAnimalClickListener.onFavoriteClickListener(animalResponse)
+                    icAnimalFavorite.visibility = View.VISIBLE
+                    icFavorite.visibility = View.INVISIBLE
+                }
+
+                root.icAnimalFavorite.setOnClickListener {
+                    onAnimalClickListener.onFavoriteClickListener(animalResponse)
+                    icAnimalFavorite.visibility = View.GONE
+                    icFavorite.visibility = View.VISIBLE
                 }
             }
         }

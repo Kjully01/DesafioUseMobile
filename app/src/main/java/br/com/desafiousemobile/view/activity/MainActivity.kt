@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.replace
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import br.com.desafiousemobile.R
 import br.com.desafiousemobile.databinding.ActivityMainBinding
 import br.com.desafiousemobile.view.fragments.FavoriteFragment
@@ -15,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var currentFragment: Fragment = HomeFragment()
+
+    private var title: String = "Home"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,19 +33,22 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener(navListener)
 
         val actionBar = supportActionBar
-        //actionBar?.title = currentFragment.
+        actionBar?.title = title
     }
 
         private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.home -> {
                     currentFragment = HomeFragment()
+                    title = "Home"
                 }
                 R.id.registration -> {
                     currentFragment = RegistrationFragment()
+                    actionBar?.title = "Cadastrar"
                 }
                 R.id.favorite -> {
                     currentFragment = FavoriteFragment()
+                    title = "Favoritos"
                 }
             }
             supportFragmentManager.beginTransaction().replace(R.id.navHost, currentFragment).commit()

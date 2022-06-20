@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="70dp"
-    android:layout_height="70dp"
+    android:layout_width="65dp"
+    android:layout_height="65dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp">
 
     <ImageView
         android:id="@+id/imageItem"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:scaleType="center" />
 
 </com.google.android.material.card.MaterialCardView>

@@ -29,27 +29,44 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="9dp"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image"
         tools:text="Nome" />
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="@id/image"
-        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintEnd_toStartOf="@id/icFavorite"
         tools:text="Descrição" />
 
     <ImageView
         android:id="@+id/icFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_favorite"
+        android:src="@drawable/ic_outline_favorite"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@id/image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/image" />
+
+    <ImageView
+        android:id="@+id/icAnimalFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image"/>
 
     <View
         android:id="@+id/divisor"
