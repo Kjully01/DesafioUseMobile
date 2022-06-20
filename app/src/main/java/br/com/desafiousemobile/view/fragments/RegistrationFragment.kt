@@ -36,21 +36,30 @@ class RegistrationFragment : Fragment() {
     private fun listener() {
         binding.apply {
             btnRegistration.setOnClickListener {
-                viewModel.registration(
-                    etName.text.toString(),
-                    etDescription.text.toString(),
-                    etAge.text.toString().toInt(),
-                    etSpecies.text.toString(),
-                    etLink.text.toString()
-                )
+                if (
+                    etName.text.toString().isNotEmpty() ||
+                    etDescription.text.toString().isNotEmpty() ||
+                    etAge.text.toString().isNotEmpty() ||
+                    etSpecies.text.toString().isNotEmpty() ||
+                    etLink.text.toString().isNotEmpty()
+                ) {
+                    viewModel.registration(
+                        etName.text.toString(),
+                        etDescription.text.toString(),
+                        etAge.text.toString().toInt(),
+                        etSpecies.text.toString(),
+                        etLink.text.toString()
+                    )
+                } else {
+                    Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun observer(){
+    private fun observer() {
         viewModel.apply {
-            animalSuccess.observe(viewLifecycleOwner, Observer{
-                //Toast.makeText(requireContext(), it.animals.last().name, Toast.LENGTH_SHORT).show()
+            animalSuccess.observe(viewLifecycleOwner, Observer {
                 clean()
             })
             error.observe(
@@ -61,7 +70,7 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun clean(){
+    private fun clean() {
         binding.apply {
             etName.setText("")
             etDescription.setText("")

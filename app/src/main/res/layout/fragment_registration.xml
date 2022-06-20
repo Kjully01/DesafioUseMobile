@@ -66,6 +66,7 @@
             android:padding="16sp"
             android:singleLine="true"
             android:layout_marginTop="40dp"
+            android:inputType="number"
             style="@style/text"/>
 
         <androidx.appcompat.widget.AppCompatButton
