@@ -37,10 +37,10 @@ class RegistrationFragment : Fragment() {
         binding.apply {
             btnRegistration.setOnClickListener {
                 if (
-                    etName.text.toString().isNotEmpty() ||
-                    etDescription.text.toString().isNotEmpty() ||
-                    etAge.text.toString().isNotEmpty() ||
-                    etSpecies.text.toString().isNotEmpty() ||
+                    etName.text.toString().isNotEmpty() &&
+                    etDescription.text.toString().isNotEmpty() &&
+                    etAge.text.toString().isNotEmpty() &&
+                    etSpecies.text.toString().isNotEmpty() &&
                     etLink.text.toString().isNotEmpty()
                 ) {
                     viewModel.registration(

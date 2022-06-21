@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentFragment: Fragment = HomeFragment()
 
-    private var title: String = "Home"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,27 +31,27 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener(navListener)
 
         val actionBar = supportActionBar
-        actionBar?.title = title
+        actionBar?.title = "Home"
     }
 
-        private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.home -> {
-                    currentFragment = HomeFragment()
-                    title = "Home"
-                }
-                R.id.registration -> {
-                    currentFragment = RegistrationFragment()
-                    actionBar?.title = "Cadastrar"
-                }
-                R.id.favorite -> {
-                    currentFragment = FavoriteFragment()
-                    title = "Favoritos"
-                }
+    private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.home -> {
+                currentFragment = HomeFragment()
+                binding.toolbar.title = "Home"
             }
-            supportFragmentManager.beginTransaction().replace(R.id.navHost, currentFragment).commit()
-            true
+            R.id.registration -> {
+                currentFragment = RegistrationFragment()
+                binding.toolbar.title = "Cadastrar"
+            }
+            R.id.favorite -> {
+                currentFragment = FavoriteFragment()
+                binding.toolbar.title = "Favoritos"
+            }
         }
+        supportFragmentManager.beginTransaction().replace(R.id.navHost, currentFragment).commit()
+        true
+    }
 
 
 }
