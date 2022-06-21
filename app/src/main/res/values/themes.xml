@@ -12,9 +12,29 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white</item>
         <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/open_sans</item>
     </style>
 
-    <style name="text">
+
+    <style name="title_name">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blue_text</item>
+    </style>
+
+    <style name="title_details">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="text_button">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="description_details">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="description_rv">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
