@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:titleCentered="true"
-            app:titleTextColor="@color/title_toolbar"
-            app:navigationIconTint="@color/title_toolbar"
+            app:titleTextColor="@color/blue_text"
+            app:navigationIconTint="@color/blue_text"
             />
 
     </com.google.android.material.appbar.AppBarLayout>

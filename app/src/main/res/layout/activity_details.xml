@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:titleCentered="true"
-            app:titleTextColor="@color/title_toolbar"
-            app:navigationIconTint="@color/title_toolbar"
+            app:titleTextColor="@color/blue_text"
+            app:navigationIconTint="@color/blue_text"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -51,6 +51,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@id/imageAnimalCard"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/title_details"
         tools:text="Nemo - 10 anos"/>
 
     <TextView
@@ -61,6 +62,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/tvNameAndAge"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/description_details"
         tools:text="Peixe"/>
 
     <TextView
@@ -70,6 +72,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="32dp"
+        style="@style/description_details"
         app:layout_constraintTop_toBottomOf="@id/tvSpecie"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

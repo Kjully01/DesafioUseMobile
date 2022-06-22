@@ -142,7 +142,7 @@
             android:text="@string/registration"
             android:textColor="@color/white"
             android:layout_marginTop="40dp"
-            style="@style/text"/>
+            style="@style/text_button"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
