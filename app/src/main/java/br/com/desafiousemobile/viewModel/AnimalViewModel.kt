@@ -181,11 +181,4 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-//    private fun listAllAnimals(animalsApi: AnimalListResponse): List<Animal>{
-//        var listAnimals: List<Animal> = listOf()
-//        viewModelScope.launch(Dispatchers.IO) {
-//            listAnimals = repositoryLocal.listAllAnimals()
-//        }
-//        return listAnimals
-//    }
 }
