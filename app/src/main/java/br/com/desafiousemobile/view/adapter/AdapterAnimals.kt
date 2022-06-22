@@ -46,6 +46,11 @@ class AdapterAnimals(
                 tvName.text = animalResponse.name
                 tvDescription.text = animalResponse.description
 
+                if (animalResponse.isFavorite){
+                    icAnimalFavorite.visibility = View.VISIBLE
+                    icFavorite.visibility = View.INVISIBLE
+                }
+
                 root.setOnClickListener {
                     onAnimalClickListener.onAnimalClickListener(animalResponse)
                 }

@@ -70,33 +70,14 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
                 .catch { exception ->
                     _error.postValue(exception.message)
                 }.collect {
-                    //cria uma funcao que verifica que se os existe algum animal da requisao no banco
-                    //caso exista, tu seta a estrela ativa pra aquele item, acho que de qualquer forma
-                    //vai precisar de um campo isFavorite
-                    //ai tu so passa essa lista com os valores alterados pro seu _animmalSusccess.postValue(listaAlteradaComAnimaisQueExistemNoBanco)
-//                    for(animal in readAllData) {
-//                      val animalExistente =  readAllData.value?.first() { animalBanco->
-//                            animal.id == animalBanco.id
-//                        }
-//                    }
-//                    Log.i("teste", readAllData.toString())
-                    //val animals = listAllAnimals(it)
                     val animals = repositoryLocal.listAllAnimals()
 
-                    val mutableList: MutableList<AnimalResponse> = mutableListOf()
-                    var list: List<AnimalListResponse> = listOf()
-
-                    for(animalApi in it.animalResponses){
+                    it.animalResponses.forEach { animalApi ->
                         val animalExist = animals.find { animalBanco ->
                             animalApi.id == animalBanco.id
                         }
                         if (animalExist != null){
-                            //Log.i("animalNotNull", animalApi.toString())
                             animalApi.isFavorite = true
-                            mutableList.add(animalApi)
-                        }else {
-                            //Log.i("animalNull", animalApi.toString())
-                            mutableList.add(animalApi)
                         }
                     }
                     _animalSuccess.postValue(it)
