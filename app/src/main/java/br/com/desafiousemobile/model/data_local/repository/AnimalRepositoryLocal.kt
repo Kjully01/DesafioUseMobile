@@ -18,4 +18,8 @@ class AnimalRepositoryLocal(private val animalDao: AnimalDao) {
     suspend fun deleteFavoriteAnimal(animal: Animal) {
         animalDao.deleteFavoriteAnimal(animal)
     }
+
+    suspend fun listAllAnimals(): List<Animal>{
+        return animalDao.listAllAnimals()
+    }
 }

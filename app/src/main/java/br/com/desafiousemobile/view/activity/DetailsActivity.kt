@@ -47,7 +47,8 @@ class DetailsActivity : AppCompatActivity() {
         viewModel.apply {
             animalResponseDataSource.observe(this@DetailsActivity, Observer{
                 binding.apply {
-                    tvNameAndAge.text = it.name.toString()
+                    val info = "${it.name} - ${it.age} anos"
+                    tvNameAndAge.text = info
                     tvDescription.text = it.description.toString()
                     tvSpecie.text = it.species.toString()
                     imageAnimal.load(it.image)

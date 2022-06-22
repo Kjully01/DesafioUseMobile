@@ -64,17 +64,26 @@ class HomeFragment : Fragment(), AnimalClickListener {
     }
 
     private fun saveAnimal(animalResponse: AnimalResponse){
-        viewModel.saveAnimalDataStore(
-            name = animalResponse.name.toString(),
-            description = animalResponse.description.toString(),
-            age = animalResponse.age.toString().toInt(),
-            species = animalResponse.species.toString(),
-            image = animalResponse.image.toString()
-        )
+        if(animalResponse.name?.isNotEmpty() == true){
+            viewModel.saveAnimalDataStore(
+                name = animalResponse.name.toString(),
+                description = animalResponse.description.toString(),
+                age = animalResponse.age.toString().toInt(),
+                species = animalResponse.species.toString(),
+                image = animalResponse.image.toString()
+            )
+        } else {
+            Toast.makeText(requireContext(), "Erro ao selecionar esse animal. Abrindo o último escolhido", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun onFavoriteAnimal(animalResponse: AnimalResponse){
-        viewModel.clickOnFavoriteAnimal(animalResponse)
+        if(animalResponse.name?.isNotEmpty() == true){
+            viewModel.clickOnFavoriteAnimal(animalResponse)
+        } else {
+            Toast.makeText(requireContext(), "Erro ao favoritar esse animal", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun observer(){

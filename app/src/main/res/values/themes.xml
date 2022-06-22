@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">@color/white</item>
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
     </style>
 
 
@@ -23,6 +24,7 @@
 
     <style name="title_details">
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="text_button">
@@ -31,10 +33,12 @@
 
     <style name="description_details">
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="description_rv">
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_rv</item>
     </style>
 
 </resources>

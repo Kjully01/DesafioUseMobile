@@ -16,7 +16,10 @@ interface AnimalDao {
     @Query("SELECT id FROM animal_table WHERE id = :id")
     fun searchAnimal(id: String): String
 
-    @Query("SELECT * FROM animal_table ORDER BY id ASC")
+    @Query("SELECT * FROM animal_table ORDER BY id DESC")
+    suspend fun listAllAnimals(): List<Animal>
+
+    @Query("SELECT * FROM animal_table ORDER BY id DESC")
     fun readAllData(): LiveData<List<Animal>>
 
 }

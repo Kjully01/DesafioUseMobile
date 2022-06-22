@@ -12,4 +12,5 @@
     <color name="color_button">#7331F9</color>
     <color name="blue_text">#158BBF</color>
     <color name="input_not_select">#DCDCDC</color>
+    <color name="text_rv">#666666</color>
 </resources>

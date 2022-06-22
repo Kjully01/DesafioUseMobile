@@ -19,6 +19,7 @@ data class AnimalResponse(
     @SerializedName("created_at")
     val created_at: Date?,
     @SerializedName("updated_at")
-    val updated_at: Date?
+    val updated_at: Date?,
+    var isFavorite: Boolean = false
 )
 
